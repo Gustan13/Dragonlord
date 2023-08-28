@@ -129,6 +129,7 @@ void move_player(unsigned char key[], bool *pressed)
     if (*pressed == false)
     {
         *pressed = true;
+        turn = 1;
         if (key[ALLEGRO_KEY_UP] && plr_y > 0 && plr_wall(plr_x, plr_y - 1))
             plr_y -= 1;
         else if (key[ALLEGRO_KEY_DOWN] && plr_y < 7 && plr_wall(plr_x, plr_y + 1))
@@ -138,7 +139,10 @@ void move_player(unsigned char key[], bool *pressed)
         else if (key[ALLEGRO_KEY_RIGHT] && plr_x < 7 && plr_wall(plr_x + 1, plr_y))
             plr_x += 1;
         else
+        {
             *pressed = false;
+            turn = 0;
+        }
         
         plr_entity();
     }
@@ -289,7 +293,8 @@ int main()
             if (key[ALLEGRO_KEY_ESCAPE])
                 done = true;
 
-            move_player(key, &pressed);
+            if (turn == 0)
+                move_player(key, &pressed);
 
             for (int i = 0; i < ALLEGRO_KEY_MAX; i++)
                 key[i] &= KEY_SEEN;

@@ -52,3 +52,5 @@ bool swd = false;
 bool swd_x = false;
 
 bool dead = false;
+
+int turn = 0;
