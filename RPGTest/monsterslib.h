@@ -40,4 +40,11 @@ void follow_player(ent* monster)
 	}
 }
 
+void move_monsters()
+{
+	for (node_t* n = all->first; n != NULL; n = n->next)
+		if (n->e->type == MINIMOY)
+			follow_player(n->e);
+}
+
 #endif // !_MONSTERS_
