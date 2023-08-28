@@ -30,16 +30,12 @@ void follow_player(ent* monster)
 
 	if (abs(delta_x) > abs(delta_y))
 	{
-		if (check_col(all, new_x, monster->y))
-			move_mstr(monster, monster->x, new_y);
-		else if (check_col(all, monster->x, new_y))
+		if (!check_col(all, new_x, monster->y))
 			move_mstr(monster, new_x, monster->y);
 	}
 	else
 	{
-		if (check_col(all, monster->x, new_y))
-			move_mstr(monster, new_x, monster->y);
-		else if (check_col(all, monster->x, new_y))
+		if (!check_col(all, monster->x, new_y))
 			move_mstr(monster, monster->x, new_y);
 	}
 }
