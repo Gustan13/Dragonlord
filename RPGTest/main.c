@@ -4,9 +4,11 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <string.h>
+
 #include "tools.h"
 #include "entlib.h"
 #include "global.h"
+#include "monsterslib.h"
 
 #define KEY_SEEN     1
 #define KEY_RELEASED 2
@@ -321,6 +323,12 @@ int main()
 
         if (dead)
             restart_level(level_1);
+
+        if (turn == 1)
+        {  
+            move_monsters();
+            turn = 0;
+        }
 
         if (redraw && al_is_event_queue_empty(queue))
         {

@@ -25,8 +25,13 @@ void follow_player(ent* monster)
 	short delta_x = plr_x - monster->x;
 	short delta_y = plr_y - monster->y;
 
-	short new_x = monster->x + delta_x / abs(delta_x);
-	short new_y = monster->y + delta_y / abs(delta_y);
+	short new_x = monster->x, new_y = monster->y;
+
+	if (delta_x != 0)
+		new_x = monster->x + delta_x / abs(delta_x);
+	
+	if (delta_y != 0)
+		new_y = monster->y + delta_y / abs(delta_y);
 
 	if (abs(delta_x) > abs(delta_y))
 	{
