@@ -5,15 +5,6 @@
 #include <stdlib.h>
 #include "global.h"
 
-void destroy_entities(queue_t* q)
-{
-	if (!q)
-		return;
-
-	for (node_t* n = q->first; n != NULL; n = n->next)
-		free(n->e);
-}
-
 void destroy_queue(queue_t* q)
 {
 	if (!q)
@@ -27,7 +18,52 @@ void destroy_queue(queue_t* q)
 	}
 }
 
-void remove_object(queue_t* q, node_t* node)
+void destroy_entities(queue_t* q)
+{
+	if (!q)
+		return;
+
+	for (node_t* n = q->first; n != NULL; n = n->next)
+		free(n->e);
+}
+
+void remove_only_entity(queue_t* q, ent* entity)
+{
+	if (!q)
+		return;
+
+	for (node_t* n = q->first; n != NULL; n = n->next)
+		if (n->e->id == entity->id)
+			free(n->e);
+}
+
+void remove_only_node(queue_t* q, ent* entity) {
+	node_t* aux = NULL;
+
+	if (q->first->e->id == entity->id)
+	{
+		aux = q->first->next;
+		free(q->first);
+		q->first = aux;
+		return;
+	}
+
+	aux = q->first;
+
+	for (node_t* n = q->first->next; n != NULL; n = n->next)
+	{
+		if (n->e->id == entity->id)
+		{
+			aux->next = n->next;
+			free(n);
+			n = NULL;
+			return;
+		}
+		aux = n;
+	}
+}
+
+void remove_full_node(queue_t* q, node_t* node)
 {
 	short id = node->e->id;
 

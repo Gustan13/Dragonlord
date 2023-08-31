@@ -96,31 +96,37 @@ void plr_entity()
             case SWORD:
                 str += 3;
                 swd = true;
-                remove_object(all, n);
+                remove_full_node(all, n);
                 return;
             case ESWORD:
                 str += 5;
                 swd_x = true;
-                remove_object(all, n);
+                remove_full_node(all, n);
                 return;
             case SHIELD:
                 shd = true;
-                remove_object(all, n);
+                remove_full_node(all, n);
                 return;
             case USHIELD:
                 shd_x = true;
-                remove_object(all, n);
+                remove_full_node(all, n);
                 return;
             case SPOTION:
                 str += 1;
-                remove_object(all, n);
+
+                ent* entity = n->e;
+
+                remove_only_node(all, n);
+                remove_only_node(potions, n);
+
+                free(n->e);
                 return;
 
             default:
                 if (n->e->str >= str)
                     dead = true;
                 else
-                    remove_object(all, n);
+                    remove_full_node(all, n);
                 return;
             }
         }
@@ -231,10 +237,10 @@ void draw_hud(ALLEGRO_FONT* font)
     al_draw_textf(
         font,
         al_map_rgb_f(1, 1, 1),
-        TILE_SIZE * 9,
-        TILE_SIZE / 2,
+        TILE_SIZE * 8,
+        TILE_SIZE / 4,
         0,
-        "%d",
+        "POW:%d",
         str
     );
 }
@@ -325,7 +331,7 @@ int main()
             restart_level(level_1);
 
         if (turn == 1)
-        {  
+        {
             move_monsters();
             turn = 0;
         }

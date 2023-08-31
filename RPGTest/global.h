@@ -16,7 +16,7 @@
 #define KIWI    'n'
 #define WALL    'o'
 
-const char* level_1 = "a115237c70d1600h44i24j66o33435334l10k02m77";
+const char* level_1 = "a115237c70d16h44i24j66o33435334";
 const char* level_2 = "h44";
 
 typedef struct entity {
